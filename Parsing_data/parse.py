@@ -1,10 +1,12 @@
 import json
 import requests
+import schedule, time
 from bs4 import BeautifulSoup as bs
 
 base_url = 'https://www.cbr.ru/currency_base/daily/'
 
 response = requests.get(base_url)
+# Parse data from website and save it in dictionary.
 def get_all_currency() -> dict:
     currency_data = {}
     soup = bs(response.text, 'lxml')
@@ -15,8 +17,7 @@ def get_all_currency() -> dict:
     return currency_data
 
 
-
-
+# Start main logic and save data in json.file
 def main():
     if response.status_code == 200:
         currency_data = get_all_currency()
@@ -24,6 +25,14 @@ def main():
             json.dump(currency_data, f, ensure_ascii=False, indent=4)
 
 
-
+# Get info only about favorite ones regularly
+def follow_favourite_currency():
+    pass
+# Schedule library - TODO
+"""
+schedule.every(1).minutes.do(main)
+while True:
+    schedule.run_pending()
+    time.sleep(1)"""
 
 
