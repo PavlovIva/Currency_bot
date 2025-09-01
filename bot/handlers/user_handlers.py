@@ -3,6 +3,9 @@ from aiogram.filters import Command
 from aiogram.types import Message
 from bot.Lexicon.lexica import help_info
 from bot.config.user_info import user_data
+from bot.Keyboards.get_board import get_board
+from bot.funcs import Return, IsCurrency
+import json
 
 router = Router()
 
@@ -19,3 +22,17 @@ async def start(msg: Message) -> None:
 @router.message(Command(commands=['help', 'info']))
 async def help_user(msg: Message) -> None:
     await msg.reply(help_info)
+
+
+# Ask user what to show
+@router.message(Command(commands=['get']))
+async def user_choose_crn(msg: Message) -> None:
+    await msg.reply("Choose", reply_markup=get_board.as_markup())
+
+
+# Send user asked info
+@router.message(IsCurrency())
+async def send_user_info(msg: Message) -> None:
+
+    anw_info = Return('/home/jon/PycharmProjects/Currency_bot/Parsing_data/currency_data.json', "AUD")
+    await msg.reply(anw_info.create())
