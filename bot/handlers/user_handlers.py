@@ -4,6 +4,7 @@ from aiogram.types import Message
 from bot.Lexicon.lexica import help_info
 from bot.config.user_info import user_data
 from bot.Keyboards.get_board import get_board
+from bot.Keyboards.set_board import set_board
 from bot.funcs import Return, IsCurrency
 from Parsing_data.parse import main, follow_favourite_currency
 import json
@@ -42,4 +43,5 @@ async def send_user_info(msg: Message) -> None:
 
 @router.message(Command(commands=['set']))
 async def set_favorite_one(msg: Message) -> None:
-    await msg.reply(follow_favourite_currency('AUD'))
+    await msg.reply("Choose: ", reply_markup=set_board)
+
