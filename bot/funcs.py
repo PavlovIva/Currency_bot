@@ -12,7 +12,7 @@ class Return:
 
     def create(self):
         data = json.load(open(self.path))
-        anw_data = f'{self.currency}: \n {data[self.currency][1]}\n {data[self.currency][2]}'
+        anw_data = f'{self.currency}: \n Валюта: {data[self.currency][1]}\n Курс: {data[self.currency][2]}'
         return anw_data
 
 
